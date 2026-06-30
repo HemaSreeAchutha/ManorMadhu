@@ -1,0 +1,534 @@
+body{
+  background: url('../back1.jpg');
+     
+    background-attachment: fixed;
+    font-family: "Comfortaa", sans-serif;
+    color: white;
+    text-align: center;         
+    background-size: cover;
+   /* background-color: rgba(255, 255, 255,0.6);*/
+    background-blend-mode:lighten;
+    margin-top: 100px;
+}
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1); /* Adjust the opacity as needed */
+    z-index: -1; /* Ensure it is behind the content */
+    filter: blur(20px); /* Optional: Add a blur effect to enhance the frosted glass look */
+}
+
+
+
+h1{
+  text-align: center;
+}
+button{
+  background-color: rgb(221, 165, 11); 
+  color: #cd3737;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  padding: 12px 24px;
+}
+.sidenav {
+  height: 100%;       /* Full-height */
+  width: 200px;       /* Set the width of the sidebar */
+  position: fixed;    /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1;         /* Stay on top */
+  top: 0;             /* Stay at the top */
+  left: 0;
+  background-color: white; /* Black background */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+.menuIcon{
+    width: 25px;
+    height: 25px;
+}
+.verticalMenu{
+    font-size: 30px;
+}
+.cards{
+    width: 50px;
+    height: 140px;
+    margin: 10vmin;
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-left: 100px;
+    padding: 20px;
+    flex: 1;
+}
+input{
+    border-radius: 5px;
+    height: 25px;
+    margin-top: 5px;
+    /*background-color: rgb(173, 168, 163);*/
+}
+label{
+    font-size: 20px;
+}
+
+
+
+h1 {
+    text-align: center;
+    color:#0f0f0f;
+    /*backdrop-filter: blur(15px);;*/
+}
+
+
+label {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #cd3737;
+}
+
+table {
+    align-items: center;
+}
+
+
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+
+#homemadeSection {
+    margin-top: 20px;
+}
+
+
+
+
+.signcontainer {
+    background: rgba(212, 212, 212, 0.4);
+    width: 30%;
+    height: 80%;
+    margin: auto;
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
+}
+.cardcontainer {
+    background: rgba(212, 212, 212, 0.4);
+    width: 20%;
+    height: 30vh;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
+    font-size: 35px;
+    font-weight: bold;
+}
+.l1container {
+    background: rgba(212, 212, 212, 0.4);
+    width: 30%;
+    height: 5vh;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
+}
+
+
+
+.l2container{
+    background: rgba(212, 212, 212, 0.4);
+    color: #040952;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    display: inline;
+}
+.emotioncontainer{
+    background: rgba(212, 212, 212, 0.4);
+    width: 30%;
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
+}
+.homecontainer{
+    background: rgba(212, 212, 212, 0.4);
+    width: 80%;
+    height: 90%;
+    margin: auto;
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
+}
+.homepara{
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+}
+/*#homemadeFood,#quantity{
+    display:flex;
+    flex-direction: column;
+}
+#homemadeSection{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+#quantity{
+    width: 120px;
+    height: 30px;
+} 
+#homemadeFood{
+    width: 300px;
+    height: 40px;
+}*/
+.exerciseContainer{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.exerciseName{
+    width: 300px;
+    height: 40px;
+}
+.duration{
+    width: 120px;
+    height: 30px;
+}
+.signcontainer{
+    width: 500px;
+    margin: auto;
+    padding: 30px;
+    background: rgba(212, 212, 212, 0.4);
+    border-radius: 20px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.eachLine{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.eachLine label{
+    width: 170px;
+    font-size: 25px;
+    font-weight: bold;
+    color: brown;
+}
+
+.eachLine input[type="text"],
+.eachLine input[type="number"],
+.eachLine input[type="password"]{
+    width: 220px;
+    height: 35px;
+    border-radius: 8px;
+    padding-left: 20px;
+    font-size: 18px;
+}
+
+.genderLine{
+    display: flex;
+    align-items: center;
+    gap: 2px;       
+}
+
+.genderLine input[type="radio"]{
+    margin-right: 2px;    
+}
+
+.genderLine label{
+    width: auto;
+    font-size: 22px;
+    margin-right: 20px;  
+}
+
+button{
+    width: 150px;
+    height: 50px;
+    margin: auto;
+    background: gold;
+    border-radius: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#homemadeSection1{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.foodRow{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.foodRow label{
+    width: 180px;
+    font-size: 22px;
+    font-weight: bold;
+    color: brown;
+}
+
+.foodRow select{
+    width: 220px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 8px;
+    padding-left: 8px;
+}
+
+.foodRow input{
+    width: 220px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 8px;
+    padding-left: 10px;
+}
+select,
+input[type="number"]{
+    width: 300px;
+    height: 45px;
+    padding-left: 10px;
+    font-size: 18px;
+    border-radius: 8px;
+}
+
+.button-group{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.button-group button{
+    width: 170px;
+    height: 50px;
+    background: gold;
+    border-radius: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+h1{
+    text-align: center;
+    color: rgb(12, 12, 12);
+}
+
+.container{
+    width: 95%;
+    margin: auto;
+    padding: 30px;
+    min-height: 70vh;   
+    height: auto;
+    background: rgba(255,255,255,0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(05px);
+}
+
+.food-row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 25px;
+    /*flex-wrap: wrap;*/
+}
+
+.food-row label{
+    width: 150px;
+    font-size: 22px;
+    font-weight: bold;
+    color: brown;
+}
+
+.food-row select,
+.food-row input{
+    width: 220px;
+    height: 40px;
+    border-radius: 8px;
+    padding-left: 10px;
+    font-size: 17px;
+}
+
+.Foodquantity-box{
+    width: 10px;
+}
+
+.foodButtons{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.foodButtons button{
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    background: gold;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* profile page css */
+
+.profile-btn{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+
+    padding: 12px 18px;
+    font-size: 20px;
+
+    background: gold;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.profile-sidebar{
+    position: fixed;
+
+    top: 0;
+    left: -350px;          /* Hidden outside screen */
+
+    width: 320px;
+    height: 100vh;
+
+    background: rgba(255,255,255,0.9);
+
+    padding: 25px;
+
+    transition: 0.5s ease;
+
+    box-shadow: 5px 0 15px gray;
+    z-index: 1000;
+    overflow-y: auto;
+}
+.profile-sidebar.active{
+    left: 0;
+}
+.close-btn{
+    float: right;
+
+    font-size: 22px;
+
+    border: none;
+
+    background: none;
+
+    cursor: pointer;
+}
+.profile-sidebar h2{
+    text-align: center;
+    color: brown;
+}
+.profile-image{
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;
+
+    background: lightgray;
+
+    margin: 30px auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 60px;
+}
+.info p{
+    font-size: 20px;
+    margin: 20px 0;
+    color: brown;
+}
+.profile-option{
+    width: 100%;
+    height: 50px;
+
+    margin-top: 20px;
+
+    font-size: 18px;
+
+    background: gold;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.logout{
+    background: crimson;
+    color: white;
+}
+
+.profile-btn{
+    position: fixed;   
+    top: 20px;
+    left: 3px;
+
+    width: 50px;
+    height: 50px;
+    z-index: 1000;
+
+    font-size: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: gold;
+    cursor: pointer;
+}
+/*end of profile css*/
+
+.sugarContainer{
+    background: rgba(212, 212, 212, 0.4);
+    width: 50%;
+    height: 80%;
+    margin: auto;
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
+}
+
+.form-group{
+    display: flex;
+    align-items: center;
+}
+
+.form-group label{
+    width: 300px;         
+    font-size: 22px;
+    font-weight: bold;
+    color: brown;
+}
+
+.form-group input{
+    width: 50px;
+    height: 40px;
+    padding-left: 10px;
+    font-size: 18px;
+    border-radius: 8px;
+}
+
+.close-btn{
+    margin-inline-end: auto;
+}
