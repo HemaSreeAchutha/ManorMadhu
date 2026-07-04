@@ -7,7 +7,6 @@ const PORT=process.env.PORT || 5000;
 const auth=require("./auth");
 const jwt=require("jsonwebtoken");
 
-console.log(process.env.JWT_SECRET);
 app.use(cors());
 app.use(express.json());
 //app.use(express.urlencoded({extended:true}));
