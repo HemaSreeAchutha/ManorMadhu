@@ -22,7 +22,7 @@ function WeeklyReport(){
         
         try{
             const token=localStorage.getItem("token");
-            const response=await fetch('http://localhost:5000/weeklyreport',{
+            const response=await fetch('https://manormadhu.onrender.com/weeklyreport',{
                 headers:{
                     Authorization:`Bearer ${token}`
                 }

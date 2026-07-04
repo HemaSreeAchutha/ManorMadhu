@@ -47,7 +47,7 @@ function SugarMonitor(){
                 return;
             }
             try{
-                const response=await fetch('http://localhost:5000/sugar-level-page',
+                const response=await fetch('https://manormadhu.onrender.com/sugar-level-page',
                     {
                         method:'POST',
                         headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},

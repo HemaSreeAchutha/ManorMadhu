@@ -28,7 +28,7 @@ function Recommendation() {
     async function handlePage() {
         try{
             const token=localStorage.getItem("token");
-            const response=await fetch('http://localhost:5000/recommendation',{
+            const response=await fetch('https://manormadhu.onrender.com/recommendation',{
                 headers:{
                     Authorization:`Bearer ${token}`
                 }

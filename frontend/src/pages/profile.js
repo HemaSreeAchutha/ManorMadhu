@@ -18,7 +18,7 @@ function Profile({closeProfile}) {
     async function fetchProfileData() {
         try {
             const token = localStorage.getItem("token");    
-            const response = await fetch('http://localhost:5000/profile', {
+            const response = await fetch('https://manormadhu.onrender.com/profile', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -35,7 +35,7 @@ function Profile({closeProfile}) {
         // Implementation for updating profile
         try {
             const token=localStorage.getItem("token");
-            const response=await fetch('http://localhost:5000/editprofile',{
+            const response=await fetch('https://manormadhu.onrender.com/editprofile',{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json',

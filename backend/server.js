@@ -3,20 +3,20 @@ const express=require('express');
 const cors=require('cors');
 const mysql=require('mysql2');
 const app=express();
-const PORT=5000;
+const PORT=process.env.PORT || 5000;
 const auth=require("./auth");
 const jwt=require("jsonwebtoken");
 
-console.log(process.env.JWT_SECRET);
 app.use(cors());
 app.use(express.json());
 //app.use(express.urlencoded({extended:true}));
 
-const db=mysql.createConnection({
-    host:"localhost",
-    user:"root",
-    password:"Hema@1896",
-    database:"diabetes_tracker"
+const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
 db.connect((err)=>{

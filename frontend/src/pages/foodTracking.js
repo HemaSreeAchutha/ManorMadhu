@@ -22,7 +22,7 @@ function FoodTracking(){
 
     async function loadBrands() {
         const token=localStorage.getItem("token");
-        const response=await fetch('http://localhost:5000/packaged-brands',{
+        const response=await fetch('https://manormadhu.onrender.com/packaged-brands',{
                 headers:{
                     Authorization:`Bearer ${token}`
                 }
@@ -44,7 +44,7 @@ function FoodTracking(){
     async function getFoods() {
         try{
             const token=localStorage.getItem("token");
-            const response=await fetch("http://localhost:5000/foods",{
+            const response=await fetch("https://manormadhu.onrender.com/foods",{
                 headers:{
                     Authorization:`Bearer ${token}`
                 }
@@ -69,7 +69,7 @@ function FoodTracking(){
         console.log(products);
         try{
             const token=localStorage.getItem("token");
-            const response=await fetch("http://localhost:5000/foodlogs",{
+            const response=await fetch("https://manormadhu.onrender.com/foodlogs",{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json',
@@ -110,7 +110,7 @@ function FoodTracking(){
     async function getProducts(brand){
         try{
             const token=localStorage.getItem("token");
-            const response = await fetch(`http://localhost:5000/api/search-food?food=${brand}`,{
+            const response = await fetch(`https://manormadhu.onrender.com/api/search-food?food=${brand}`,{
                 headers:{
                     Authorization:`Bearer ${token}`
                 }

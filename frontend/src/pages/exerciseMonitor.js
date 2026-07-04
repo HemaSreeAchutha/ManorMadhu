@@ -50,7 +50,7 @@ function SelectExercise(){
         e.preventDefault();
         try{
             const token=localStorage.getItem("token");
-            const response=await fetch('http://localhost:5000/exerciselogs',{
+            const response=await fetch('https://manormadhu.onrender.com/exerciselogs',{
                 method:'POST',
                 headers:{'Content-Type':'application/json',
                     Authorization:`Bearer ${token}`

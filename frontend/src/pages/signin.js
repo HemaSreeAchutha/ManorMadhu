@@ -14,7 +14,7 @@ function Signin() {
     const handleSubmit=async(e)=>{
         e.preventDefault();
         console.log("sending data...");
-        const response=await fetch("http://localhost:5000/signin",{
+        const response=await fetch("https://manormadhu.onrender.com/signin",{
             method: "POST" ,
             headers: {"Content-Type":"application/json"},
             body:JSON.stringify({username,password})
