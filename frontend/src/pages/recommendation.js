@@ -63,7 +63,7 @@ function Recommendation() {
             minWidth: '280px'
         },
         stat: { textAlign: 'left', padding: '6px 0', color: 'black', fontFamily: 'cursive' },
-        recItem: { fontStyle: 'italic', color: '#e8ebff', marginTop: 8, color: 'black' }
+        recItem: { fontStyle: 'italic', marginTop: 8, color: 'black' }
     };
 
     return (
