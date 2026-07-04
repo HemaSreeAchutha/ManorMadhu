@@ -63,7 +63,7 @@ function Recommendation() {
             minWidth: '280px'
         },
         stat: { textAlign: 'left', padding: '6px 0', color: 'black', fontFamily: 'cursive' },
-        recItem: { fontStyle: 'italic', color: '#e8ebff', marginTop: 8 }
+        recItem: { fontStyle: 'italic', color: '#e8ebff', marginTop: 8, color: 'black' }
     };
 
     return (
@@ -91,7 +91,7 @@ function Recommendation() {
                         {serverData.recommendations && serverData.recommendations.length > 0 ? 
                             (
                                 serverData.recommendations.map((item, index) => {
-                                    return (<li key={index} style={styles.recItem,{color: 'black'}}>{item}<br/><br/></li>)
+                                    return (<li key={index} style={styles.recItem}> {item} <br/><br/> </li>)
                                 })
                             )  : 
                             (
