@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
-//import { response } from 'express';
-//import ReactDOM from 'react-dom/client';
-//import reportWebVitals from './reportWebVitals';
+ 
 function OnlySelectOption({index,exercise,duration,updatedValue,selectedExercise}){
     
     const choosedOtions=selectedExercise.map((item)=>item.exercise).filter((item)=>item!=="");
@@ -26,7 +24,7 @@ function OnlySelectOption({index,exercise,duration,updatedValue,selectedExercise
         </>
     );
 }
-
+ 
 function SelectExercise(){
     const navigate=useNavigate();
     const [selectedExercise,setSelectedExercise]=useState([{exercise:"",duration:""}]);
@@ -42,7 +40,7 @@ function SelectExercise(){
         const validExercises = selectedExercise.filter(
             item => item.exercise && item.duration
         );
-
+ 
         if(validExercises.length === 0){
             alert("Please select at least one exercise");
             return;
@@ -70,41 +68,44 @@ function SelectExercise(){
     }
     return(
         <>
-            <h1 style={{color:'#040952'}}>Welcome to exercise Tracking Page</h1>
-
-            <div className="signcontainer">
-                <form onSubmit={submitExercise}>
-
-                    {selectedExercise.map((item, index) => (
-                        <div className="eachLine" key={index}>
-                            <OnlySelectOption
-                                index={index}
-                                exercise={item.exercise}
-                                duration={item.duration}
-                                updatedValue={updateExercise}
-                                selectedExercise={selectedExercise}
-                            />
+            <div className="auth-page">
+                <h1 className="auth-title">Welcome to Exercise Tracking</h1>
+ 
+                <div className="signcontainer">
+                    <form onSubmit={submitExercise}>
+ 
+                        {selectedExercise.map((item, index) => (
+                            <div className="eachLine" key={index}>
+                                <OnlySelectOption
+                                    index={index}
+                                    exercise={item.exercise}
+                                    duration={item.duration}
+                                    updatedValue={updateExercise}
+                                    selectedExercise={selectedExercise}
+                                />
+                            </div>
+                        ))}
+ 
+                        <div className="button-group">
+                            <button
+                                type="button"
+                                onClick={addExercise}
+                            >
+                                Add 
+                            </button>
+ 
+                            <button type="submit">
+                                Submit All
+                            </button>
                         </div>
-                    ))}
-
-                    <div className="button-group">
-                        <button
-                            type="button"
-                            onClick={addExercise}
-                        >
-                            Add 
-                        </button>
-
-                        <button type="submit">
-                            Submit All
-                        </button>
-                    </div>
-
-                </form>
+ 
+                    </form>
+                </div>
             </div>
         </>
     );
 }
-
-
+ 
+ 
 export default SelectExercise;
+ 

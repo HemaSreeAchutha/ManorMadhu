@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
-
+ 
 function EmotionMonitor(){
     const [emotion,setEmotion]=useState("");
     const navigate=useNavigate();
-
+ 
     async function handleSubmit(){
         if(!emotion){
             alert("Please select an emotion");
@@ -29,22 +29,15 @@ function EmotionMonitor(){
         }
         
     }
-
+ 
     return (
         <>
-        <div className="emotion" style={{
-            marginTop: '100px',
-            minHeight: 'calc(100vh - 100px)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
-            }}>
-            <h1 style={{marginTop: '100px'}}>😊Enter Your Emotion😊</h1>
+        <div className="emotion-page">
+            <h1>😊 Enter Your Emotion 😊</h1>
             <div className="emotioncontainer">
                 <label htmlFor="emotion">Share your present Emotion😊</label>
-
-                <select id="emotion" value={emotion} style={{width: '250px'}} onChange={(e)=>setEmotion(e.target.value)}>
+ 
+                <select id="emotion" className="emotion-select" value={emotion} onChange={(e)=>setEmotion(e.target.value)}>
                     <option value="">-- Choose emotion --</option>
                     <option value="Happy">😊Happy</option>
                     <option value="Calm">😌Calm</option>
@@ -57,13 +50,12 @@ function EmotionMonitor(){
                     <option value="Guilty">😔Guilty</option>
                     <option value="Energetic">⚡Energetic</option>
                 </select>
-
-                <br/><br/>
             </div>
-            <button onClick={handleSubmit} style={{marginBottom: '120px' }}>Next</button>
+            <button onClick={handleSubmit}>Next</button>
         </div>
         </>
     );
 }
-
+ 
 export default EmotionMonitor;
+ 

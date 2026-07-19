@@ -1,0 +1,140 @@
+/* =========================================================
+   ManorMadhu — Global Design System
+   Pure vanilla CSS. Import this ONCE, globally (e.g. in
+   src/index.js as: import './theme.css';
+   It must load BEFORE style.css / about.css so those files
+   can still override things page-by-page as we go.
+   ========================================================= */
+ 
+:root{
+  /* --- Brand palette: clinical teal + Ayurvedic mint + warm saffron --- */
+  --teal-900:#0b3d3d;
+  --teal-800:#0d5555;
+  --teal-700:#0f6f6f;
+  --teal-600:#128a8a;
+  --teal-100:#e3f2f1;
+ 
+  --mint-600:#0f9d6f;
+  --mint-500:#14b382;
+  --mint-100:#e3f7ee;
+ 
+  --saffron-500:#e2a33d;
+  --saffron-600:#c98a26;
+ 
+  --terracotta:#c1502e;
+  --terracotta-100:#fbeae4;
+ 
+  --ink-900:#16302d;   /* primary text */
+  --ink-700:#3d534f;   /* secondary text */
+  --ink-500:#6d827d;   /* muted text */
+ 
+  --surface:#ffffff;
+  --bg:#f6faf8;
+  --border:#e1ece8;
+ 
+  --shadow-sm:0 2px 10px rgba(13,111,111,.08);
+  --shadow-md:0 12px 32px rgba(13,111,111,.14);
+  --shadow-lg:0 24px 60px rgba(13,111,111,.18);
+ 
+  --radius-sm:10px;
+  --radius-md:16px;
+  --radius-lg:24px;
+ 
+  --font-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+ 
+*{ box-sizing: border-box; }
+ 
+html{ scroll-behavior: smooth; }
+ 
+body{
+  font-family: var(--font-base);
+  /* Soft aesthetic backdrop — gentle mint-to-ivory wash, no watermark/texture */
+  background: linear-gradient(160deg, #eaf6f1 0%, #f7f6ee 55%, #fdf7ee 100%);
+  background-attachment: fixed;
+  color: var(--ink-900);
+  margin: 0;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+ 
+h1, h2, h3, h4{
+  font-family: var(--font-base);
+  color: var(--ink-900);
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 .5em 0;
+}
+ 
+p{ color: var(--ink-700); margin: 0 0 1em 0; }
+ 
+label{
+  font-family: var(--font-base);
+  color: var(--ink-700);
+  font-weight: 600;
+}
+ 
+/* Base button — page CSS loaded after this can still override per-page */
+button{
+  font-family: var(--font-base);
+  background: var(--teal-700);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .2px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+button:hover{
+  background: var(--teal-600);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+button:active{ transform: translateY(0); box-shadow: var(--shadow-sm); }
+button:disabled{ opacity:.55; cursor:not-allowed; transform:none; }
+ 
+select,
+input[type="text"],
+input[type="number"],
+input[type="password"]{
+  font-family: var(--font-base);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 1rem;
+  color: var(--ink-900);
+  background: var(--surface);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+select:focus,
+input:focus{
+  outline: none;
+  border-color: var(--teal-600);
+  box-shadow: 0 0 0 3px var(--teal-100);
+}
+ 
+::selection{ background: var(--mint-100); color: var(--teal-900); }
+ 
+/* Small utility classes available to every page as we rebuild it */
+.mm-container{ width: min(1140px, 92%); margin: 0 auto; }
+.mm-card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+.mm-badge{
+  display: inline-block;
+  background: var(--mint-100);
+  color: var(--teal-800);
+  font-weight: 700;
+  font-size: .8rem;
+  letter-spacing: .3px;
+  padding: 6px 14px;
+  border-radius: 999px;
+}

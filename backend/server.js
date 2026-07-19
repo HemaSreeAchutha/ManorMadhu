@@ -6,6 +6,8 @@ const app=express();
 const PORT=process.env.PORT || 5000;
 const auth=require("./auth");
 const jwt=require("jsonwebtoken");
+const {testGemini}=require("./services/aiRecommendation.js");
+
 
 app.use(cors());
 app.use(express.json());
@@ -18,6 +20,12 @@ const db = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
 });
+/*const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "Hema@1896",
+  database: "diabetes_tracker"
+});*/
 
 db.connect((err)=>{
     if(err){
@@ -232,7 +240,7 @@ function queryDB(sql,params=[]){
     
 }
 
-app.get('/recommendation',auth,async (req,res)=>{
+/*app.get("/test-ai",auth, async (req, res) => {
     const user_id=req.user.id;
     const nutritionSql=`SELECT
         SUM(total_calories) AS total_calories,
@@ -256,6 +264,11 @@ app.get('/recommendation',auth,async (req,res)=>{
         AND DATE(pfl.created_at) = CURDATE()
     ) AS combined;`;
 
+    const sugarsql=`SELECT before_food,after_food FROM sugar_logs WHERE user_id=? AND DATE(created_at)=CURDATE()`;
+    const sugarResult=await queryDB(sugarsql,[user_id]);
+    const beforeMeal=Number(sugarResult[0]?.before_food)||0;
+    const afterMeal=Number(sugarResult[0]?.after_food)||0;
+
     const emotionssql=`SELECT emotion_name FROM emotion_logs WHERE user_id=? AND DATE(emotion_date)=CURDATE()`;
     const emotions=await queryDB(emotionssql,[user_id]);
     const todayEmotions=emotions.map((item)=>item.emotion_name);
@@ -275,6 +288,121 @@ app.get('/recommendation',auth,async (req,res)=>{
         [user_id]
     );
     const exerciseDuration=Number(exerciseResult[0]?.total_duration)||0;
+    const userData={
+        BMI:BMI,
+        beforeMeal:beforeMeal,
+        afterMeal:afterMeal,
+        total_calories:total_calories,
+        total_carbs:total_carbs,
+        exerciseDuration:exerciseDuration,
+        emotions:todayEmotions
+    }
+  try {
+    const reply = await testGemini(userData);
+    console.log(reply);
+    const recommendation = JSON.parse(reply);
+
+    res.json({recommendation,userData});
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error calling Gemini");
+  }
+});*/
+
+app.get('/recommendation',auth,async (req,res)=>{
+     //console.log("Entered /recommendation route");
+    const user_id=req.user.id;
+    console.log("user_id:", user_id);
+    const nutritionSql=`SELECT
+        SUM(total_calories) AS total_calories,
+        SUM(total_carbs) AS total_carbs
+    FROM (
+        SELECT
+            SUM(fl.quantity * f.calories) AS total_calories,
+            SUM(fl.quantity * f.carbs) AS total_carbs
+        FROM food_logs fl
+        JOIN foods f ON fl.food_id = f.id
+        WHERE fl.user_id = ?
+        AND DATE(fl.created_at) = CURDATE()
+
+        UNION ALL
+
+        SELECT
+            SUM(pfl.quantity * pfl.calories) AS total_calories,
+            SUM(pfl.quantity * pfl.carbs) AS total_carbs
+        FROM packaged_food_logs pfl
+        WHERE pfl.user_id = ?
+        AND DATE(pfl.created_at) = CURDATE()
+    ) AS combined;`;
+
+    const sugarsql=`SELECT before_food,after_food FROM sugar_logs WHERE user_id=? AND DATE(created_at)=CURDATE()`;
+    const sugarResult=await queryDB(sugarsql,[user_id]);
+    console.log("Sugar Result:", sugarResult);
+    const beforeMeal=Number(sugarResult[0]?.before_food)||0;
+    const afterMeal=Number(sugarResult[0]?.after_food)||0;
+
+    const emotionssql=`SELECT emotion_name FROM emotion_logs WHERE user_id=? AND DATE(emotion_date)=CURDATE()`;
+    const emotions=await queryDB(emotionssql,[user_id]);
+    console.log("Emotions Result:", emotions);
+    const todayEmotions=emotions.map((item)=>item.emotion_name);
+    console.log(todayEmotions);
+    //const currentEmotion=emotions[0]?.emoti
+    // 
+    // on_name || "Neutral";
+    const nutritionSummary=await queryDB(nutritionSql,[user_id,user_id]);
+    console.log("Nutrition Summary:", nutritionSummary);
+    const total_carbs=Number(nutritionSummary[0]?.total_carbs)||0;
+    const total_calories=Number(nutritionSummary[0]?.total_calories)||0;
+
+    const BMIResult=await queryDB('select BMI from users where user_id=?',[user_id]);
+    console.log("BMI Result:", BMIResult);
+    const BMI=Number(BMIResult[0]?.BMI)||0;
+
+    const exerciseResult=await queryDB(
+        `SELECT SUM(duration) AS total_duration
+        FROM exercise_logs
+        WHERE user_id = ?
+        AND DATE(exercise_date) = CURDATE()`,
+        [user_id]
+    );
+    console.log("Exercise Result:", exerciseResult);
+    const exerciseDuration=Number(exerciseResult[0]?.total_duration)||0;
+
+    const userData={
+        BMI:BMI,
+        beforeMeal:beforeMeal,
+        afterMeal:afterMeal,
+        total_calories:total_calories,
+        total_carbs:total_carbs,
+        exerciseDuration:exerciseDuration,
+        emotions:todayEmotions
+    }
+    let recommendation=null;
+    try {
+    console.log("testGemini is calling...")
+    const reply = await testGemini(userData);
+    console.log("testGemini response:");
+    console.log(reply);
+    recommendation = JSON.parse(reply);
+
+    //res.json({recommendation,userData});
+  } 
+  catch (err) {
+    console.error("Gemini Error:", err);
+
+    recommendation = {
+        diet: "AI recommendation is currently unavailable.",
+        exercise: "Walk for at least 30 minutes daily.",
+        foodsToAvoid: "Avoid sugary drinks and processed foods.",
+        lifestyle: "Sleep 7-8 hours and stay hydrated.",
+        motivation: "Keep tracking your health every day."
+    };
+}
+
+/*res.json({
+    ...result,
+    recommendation
+});*/
 
     const recommendations=[];
 
@@ -379,9 +507,9 @@ app.get('/recommendation',auth,async (req,res)=>{
     }
                                             
         recommendations.push("Drink 2.5-3 litres of water daily");
-
+        console.log("Recommendations:",recommendations);
     res.json({
-        BMI,total_carbs,total_calories,exerciseDuration,status,recommendations
+        BMI,total_carbs,total_calories,exerciseDuration,status,recommendations,recommendation,userData  
     });
     /*db.query(sql,[user_id,user_id],
         (err,result)=>{
@@ -552,7 +680,7 @@ app.post('/sugar-level-page',auth,(req,res)=>{
     
     if(beforeMeal<70 ){
         status.beforeStatus="Low";
-        recommendations.push("Consume 15–20 g of fast-acting carbohydrates (e.g., glucose tablets or fruit juice), recheck after 15 minutes, and consider seeking medical advice if symptoms persist.");
+        recommendations.push("Consume 15-20 g of fast-acting carbohydrates (e.g., glucose tablets or fruit juice), recheck after 15 minutes, and consider seeking medical advice if symptoms persist.");
     }
     else if(beforeMeal >= 70 && beforeMeal <= 99 ){
         status.beforeStatus="Normal";

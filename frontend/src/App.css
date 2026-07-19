@@ -1,82 +1,154 @@
-.App {
-  text-align: center;
+/* =========================================================
+   ManorMadhu — App shell & Navbar
+   Relies on CSS variables defined in theme.css (import that
+   file globally BEFORE this one).
+   ========================================================= */
+ 
+.App{ text-align: left; }
+ 
+/* ---------- Navbar ---------- */
+.navSection{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 32px;
+  background: rgba(255,255,255,.96);
+  /*backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);*/
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+ 
+/* ---------- Brand logo (your uploaded artwork) ---------- */
+.brand-logo{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  flex-shrink: 0;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.brand-icon{
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.brand-text-group{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  line-height: 1.1;
 }
-
-.App-link {
-  color: #61dafb;
+.brand-text{
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: .1px;
+  white-space: nowrap;
+  background: linear-gradient(120deg, var(--teal-700), var(--mint-500));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.brand-accent{
+  background: linear-gradient(120deg, var(--saffron-600), var(--teal-600));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-.navSection{
-  border:1px solid black;
-  background-color:  rgb(221, 165, 11);
-  color: white;
+.brand-tagline{
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  margin-top: 1px;
+}
+ 
+/* ---------- Nav links ---------- */
+.nav-links{
   display: flex;
-  justify-content: space-evenly;
-  position:fixed;
-  z-index: 1000;
-  width: 100%;
-  top: 0;
-}
-.navSection ul li{
-  display: inline;
+  align-items: center;
+  gap: 6px;
   list-style: none;
-  margin: 20px;
-  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
 }
-body{
-  background-color: #61fbfb;
-  text-align: center;
+.nav-links li{ margin: 0; }
+ 
+.nav-links a{
+  display: inline-block;
+  text-decoration: none;
+  color: var(--ink-700);
+  font-weight: 600;
+  font-size: .98rem;
+  padding: 9px 16px;
+  border-radius: 999px;
+  transition: background-color .25s ease, color .25s ease;
 }
-
-.signoutitem{
-  margin-left: auto;
+.nav-links a:hover{
+  background: var(--mint-100);
+  color: var(--teal-800);
+}
+ 
+.nav-cta{
+  background: var(--teal-700) !important;
+  color: #fff !important;
+  box-shadow: var(--shadow-sm);
+}
+.nav-cta:hover{
+  background: var(--teal-600) !important;
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+ 
+.nav-logout{
   cursor: pointer;
-  align-items: right;
+  color: var(--terracotta);
+  font-weight: 600;
+  font-size: .98rem;
+  padding: 9px 16px;
+  border-radius: 999px;
+  transition: background-color .25s ease;
 }
-
-.navSection{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgb(221,165,11);
-    padding: 10px 20px;
+.nav-logout:hover{ background: var(--terracotta-100); }
+ 
+.profile-btn{
+  position: static;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 12px;
+  background: var(--mint-100);
+  color: var(--teal-800);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color .25s ease, color .25s ease;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
 }
-
-.navCenter{
-    flex: 1;
-    text-align: center;
+.profile-btn:hover{
+  background: var(--teal-700);
+  color: #fff;
+  transform: none;
+  box-shadow: var(--shadow-sm);
 }
-
-.navRight{
-    margin-left: auto;
+ 
+/* Legacy empty <li><Link/></li> route placeholders in NavBar — kept
+   in the DOM (untouched logic) but visually hidden */
+.nav-hidden{ display: none; }
+ 
+/* ---------- Small screens ---------- */
+@media (max-width: 720px){
+  .navSection{ padding: 12px 18px; flex-wrap: wrap; row-gap: 10px; }
+  .brand-text{ font-size: 1.2rem; }
+  .nav-links{ gap: 2px; }
+  .nav-links a, .nav-logout{ padding: 8px 10px; font-size: .9rem; }
 }
+ 

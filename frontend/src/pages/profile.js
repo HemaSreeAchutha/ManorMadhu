@@ -1,17 +1,6 @@
-
-//import { useState } from "react";
 import "./style.css";
 import {useState,useEffect} from "react";
-/*
-
-            <button
-                className="profile-btn"
-                onClick={() => setShowProfile(true)}
-            >
-                ☰ Profile
-            </button>
-*/ 
-
+ 
 function Profile({closeProfile}) {
     const [userData, setUserData] = useState({});
     const [isEditing, setIsEditing] = useState(false);
@@ -25,14 +14,12 @@ function Profile({closeProfile}) {
             });
             const userData = await response.json();
             setUserData(userData);
-            // Do something with the user data, e.g., update state
         } catch (error) {
             console.error("Error fetching profile data:", error);
         }
     }
     
     async function updateProfile() {
-        // Implementation for updating profile
         try {
             const token=localStorage.getItem("token");
             const response=await fetch('https://manormadhu.onrender.com/editprofile',{
@@ -50,60 +37,17 @@ function Profile({closeProfile}) {
             console.log(err);
         }
     }
-
+ 
     useEffect(() => {
         fetchProfileData();
     }, []);
-
+ 
     async function saveProfile() {
-        // Implementation for saving profile changes
         await updateProfile();
         setIsEditing(false);
         closeProfile(); 
     }
-
-    
-
-    //const [showProfile, setShowProfile=true] = useState(true);
-
-    /*function RenderProfile() {
-            return (
-                <div className={"profile-sidebar active"}>
-
-                <button
-                    className="close-btn"
-                    onClick={closeProfile}
-                >
-                    ✖
-                </button>
-
-                <h2>My Profile</h2>
-
-                <div className="profile-image">
-                    👤
-                </div>
-
-                <div className="info">
-                    <p><strong>Name:</strong> {userData.name || 'N/A'}</p>
-                    <p><strong>Age:</strong> {userData.age || 'N/A'}</p>
-                    <p><strong>Gender:</strong> {userData.gender || 'N/A'}</p>
-                    <p><strong>Height:</strong> {userData.height || 'N/A'} cm</p>
-                    <p><strong>Weight:</strong> {userData.weight || 'N/A'} kg</p>
-                    <p><strong>Username:</strong> {userData.username || 'N/A'}</p>
-                </div>
-
-                <button className="profile-option" onClick={() => setIsEditing(true)}>
-                    Edit Profile
-                </button>
-
-                <button className="profile-option logout">
-                    Logout
-                </button>
-
-            </div>
-            );
-    }*/
-
+ 
     return (
         <div>
             {isEditing ? <div className="profile-sidebar active">
@@ -111,7 +55,6 @@ function Profile({closeProfile}) {
                                 ✖
                             </button>
                             <h2>Edit Profile</h2>
-                            {/* Form fields for editing profile */}
                             <label htmlFor="name">Name:</label>
                             <input type="text" id="name" placeholder="Name" value={userData.name || ""} onChange={(e) => setUserData({...userData, name: e.target.value})} />
                             <label htmlFor="age">Age:</label>
@@ -124,7 +67,7 @@ function Profile({closeProfile}) {
                             <input type="number" id="weight" placeholder="Weight" value={userData.weight || ""} onChange={(e) => setUserData({...userData, weight: e.target.value})} />
                             <button className="profile-option" onClick={saveProfile}>
                                 Save Changes
-                            </button><br/><br/>
+                            </button>
                         </div>
                 : <div className={"profile-sidebar active"}>
                     <button
@@ -133,13 +76,13 @@ function Profile({closeProfile}) {
                     >
                         ✖
                     </button>
-
+ 
                     <h2>My Profile</h2>
-
+ 
                     <div className="profile-image">
                         👤
                     </div>
-
+ 
                     <div className="info">
                         <p><strong>Name:</strong> {userData.name || 'N/A'}</p>
                         <p><strong>Age:</strong> {userData.age || 'N/A'}</p>
@@ -147,19 +90,20 @@ function Profile({closeProfile}) {
                         <p><strong>Height:</strong> {userData.height || 'N/A'} cm</p>
                         <p><strong>Weight:</strong> {userData.weight || 'N/A'} kg</p>
                     </div>
-
+ 
                     <button className="profile-option" onClick={() => setIsEditing(true)}>
                         Edit Profile
                     </button>
-
+ 
                     <button className="profile-option logout">
                         Logout
                     </button>
-
+ 
                 </div>
             }
         </div>        
     );
 }
-
+ 
 export default Profile;
+ 

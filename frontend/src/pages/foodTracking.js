@@ -1,25 +1,22 @@
 import React, { useState,useEffect } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
-
+ 
 function FoodTracking(){
     const navigate=useNavigate();
-    //const [foodType,setFoodType]=useState("");
     const [foods,setFoods]=useState([]);
     const [foodEntries,setFoodEntries]=useState([{food_id:"",foodType:"",quantity:"",brand:"",product:"",carbs:"",calories:""}]);
-    //const [selectedFood,setSelectedFood]=useState(null);
     const [brands,setBrands]=useState([]);
     const [products,setProducts]=useState([]);
-    //const [selectedProduct,setSelectedProduct]=useState({});
-
+ 
     useEffect(()=>{
         getFoods();
     },[]);
-
+ 
     useEffect(()=>{
         loadBrands();
     },[]);
-
+ 
     async function loadBrands() {
         const token=localStorage.getItem("token");
         const response=await fetch('https://manormadhu.onrender.com/packaged-brands',{
@@ -30,17 +27,13 @@ function FoodTracking(){
         const data=await response.json();
         setBrands(data);
     }
-
-     /*useEffect(() => {
-            packagedFoods();
-    },[]);*/
-    
+ 
     function updateFoodEntry(index,field,value){
         const updated=[...foodEntries];
         updated[index][field]=value;
         setFoodEntries(updated);
     }
-
+ 
     async function getFoods() {
         try{
             const token=localStorage.getItem("token");
@@ -58,14 +51,36 @@ function FoodTracking(){
             console.log(err);
         }
     }
-
+ 
     async function getFoodLogs() {
-        const validFood=foodEntries.filter((item)=>item.food_id && item.foodType && item.quantity)
+        /*const validFood=foodEntries.filter((item)=>item.food_id && item.foodType && item.quantity)
         if(validFood.length===0){
             alert("Please complete selecting food entries");
             return false;
             
+        }*/
+
+        const validFood = foodEntries.every((item) => {
+            // Quantity must always be entered
+            if (!item.quantity) return false;
+
+            // Food type must always be selected
+            if (!item.foodType) return false;
+
+            // Validation for packaged food
+            if (item.foodType === "Packaged") {
+                return item.brand && item.product_id;
+            }
+
+            // Validation for homemade food
+            return item.food_id;
+        });
+
+        if (!validFood) {
+            alert("Please complete all food entries.");
+            return false;
         }
+
         console.log(products);
         try{
             const token=localStorage.getItem("token");
@@ -85,11 +100,7 @@ function FoodTracking(){
             console.log(err);
         }
     }
-
-    
-
-   
-
+ 
     async function goToDashboard(e){
         e.preventDefault();
         console.log(foodEntries);
@@ -101,12 +112,12 @@ function FoodTracking(){
         }
         
     }
-
+ 
     function addFoodHandle(){
         setFoodEntries([...foodEntries,{food_id:"",foodType:"",quantity:"",brand:"",product:"",product_id:"",carbs:"",calories:""}]);
         
     }
-
+ 
     async function getProducts(brand){
         try{
             const token=localStorage.getItem("token");
@@ -124,7 +135,7 @@ function FoodTracking(){
             else{
                 setProducts([]);
             }
-
+ 
         }
         catch(err){
             console.log(err);
@@ -132,7 +143,6 @@ function FoodTracking(){
         }
     }
     
-    //fruit-java plum
     const addFoodUi=(
         <>
                
@@ -148,7 +158,7 @@ function FoodTracking(){
                          return <div className="food-row" key={index}>
                             
                             <label htmlFor="foodType">Choose Food Type</label>
-                            <select id={`foodType-${index}`} value={entry.foodType} style={{width: '250px'}} onChange={(e)=>updateFoodEntry(index,"foodType",e.target.value)}>
+                            <select id={`foodType-${index}`} value={entry.foodType} onChange={(e)=>updateFoodEntry(index,"foodType",e.target.value)}>
                                 <option value="">-- Select --</option>
                                 <option value="Breakfast">Breakfast</option>
                                 <option value="Packaged">Packaged Food</option>
@@ -159,7 +169,7 @@ function FoodTracking(){
                                 <option value="Snacks">Snacks and Fastfood</option>
                                 <option value="Beverage">Beverages</option>
                             </select>
-
+ 
                             {
                                 entry.foodType==="Packaged"?(
                                     <>
@@ -196,10 +206,10 @@ function FoodTracking(){
                                             }
                                             
                                         </select>
-
+ 
                                     </>
                                 ):(
-                                    <select value={entry.food_id} id={`homemadeFood-${index}`} style={{width: '250px'}} onChange={(e)=>updateFoodEntry(index,"food_id",e.target.value)}>
+                                    <select value={entry.food_id} id={`homemadeFood-${index}`} onChange={(e)=>updateFoodEntry(index,"food_id",e.target.value)}>
                                     <option value="">-- Choose Food --</option>
                                     {
                                         filteredFoods.map((item,index)=>
@@ -211,7 +221,7 @@ function FoodTracking(){
                                     </select>
                                 )
                             }
-
+ 
                            <input className="Foodquantity-box" id={`quantity-${index}`} name="quantity" value={entry.quantity} type="text" placeholder={presentFood? `Quantity (${presentFood.serving_size})`: "Enter Quantity"} onChange={(e)=>updateFoodEntry(index,"quantity",e.target.value)}/>
                     
                         </div>
@@ -225,8 +235,8 @@ function FoodTracking(){
     
     return(
         <>
-            <div className="container">
-
+            <div className="foodtracker-page">
+ 
             <h1>Food Tracker</h1>
             {addFoodUi}
             
@@ -240,5 +250,6 @@ function FoodTracking(){
         </>
     );
 }
-
+ 
 export default FoodTracking;
+ 
